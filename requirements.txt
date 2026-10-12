@@ -13,3 +13,4 @@ Flask-Login
 Flask-Mail
 python-dotenv
 gunicorn
+ImageHash
