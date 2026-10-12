@@ -1,0 +1,785 @@
+
+/* =========================================================
+   LOSTAI - REPORT LOST PAGE
+   DASHBOARD NAVBAR - EXACT SAME
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #f5f7fb;
+    color: #0f172a;
+}
+
+
+/* =========================================================
+   DASHBOARD LAYOUT
+   ========================================================= */
+
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+
+/* =========================================================
+   SIDEBAR / NAVBAR
+   EXACT DASHBOARD STYLE
+   ========================================================= */
+
+.sidebar {
+    width: 260px;
+    min-height: 100vh;
+
+    background: #0b1428;
+
+    padding: 30px 18px;
+
+    flex-shrink: 0;
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    overflow-y: auto;
+
+    z-index: 1000;
+}
+
+
+/* =========================================================
+   LOSTAI LOGO
+   ========================================================= */
+
+.brand {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin: 5px 10px 42px;
+
+    color: #ffffff;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    line-height: 1;
+}
+
+.brand i {
+    color: #ffffff;
+
+    font-size: 27px;
+
+    width: 27px;
+
+    text-align: center;
+}
+
+.brand span {
+    color: #ffffff;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 28px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   SIDEBAR MENU
+   ========================================================= */
+
+.sidebar ul {
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 8px 0;
+
+    padding: 0;
+}
+
+
+/* =========================================================
+   NAVBAR LINKS
+   ========================================================= */
+
+.sidebar ul li a {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    width: 100%;
+
+    min-height: 48px;
+
+    padding: 14px 17px;
+
+    color: #cbd5e1;
+
+    background: transparent;
+
+    text-decoration: none;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    line-height: 1.2;
+
+    border-radius: 14px;
+
+    transition: all 0.25s ease;
+}
+
+
+/* =========================================================
+   NAVBAR ICONS
+   ========================================================= */
+
+.sidebar ul li a i {
+    width: 20px;
+
+    min-width: 20px;
+
+    text-align: center;
+
+    font-size: 16px;
+
+    color: #cbd5e1;
+
+    transition: all 0.25s ease;
+}
+
+
+/* =========================================================
+   NAVBAR TEXT
+   ========================================================= */
+
+.sidebar ul li a span {
+    color: #cbd5e1;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    transition: all 0.25s ease;
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.sidebar ul li a:hover {
+    background: rgba(255, 255, 255, 0.08);
+
+    color: #ffffff;
+
+    transform: translateX(2px);
+}
+
+.sidebar ul li a:hover i {
+    color: #ffffff;
+}
+
+.sidebar ul li a:hover span {
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   ACTIVE REPORT LOST
+   SAME DARK ACTIVE STYLE
+   ========================================================= */
+
+.sidebar ul li.active a {
+    background: rgba(255, 255, 255, 0.10);
+
+    color: #ffffff;
+
+    box-shadow: none;
+
+    transform: none;
+}
+
+.sidebar ul li.active a i {
+    color: #ffffff;
+}
+
+.sidebar ul li.active a span {
+    color: #ffffff;
+
+    font-weight: 600;
+}
+
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.main-content {
+    margin-left: 260px;
+
+    width: calc(100% - 260px);
+
+    min-height: 100vh;
+
+    padding: 42px 48px 60px;
+
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.page-header {
+    margin-bottom: 38px;
+
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid #eef0f5;
+}
+
+
+.page-label {
+    display: inline-block;
+
+    margin-bottom: 9px;
+
+    color: #6254f5;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.8px;
+}
+
+
+.page-header h1 {
+    margin: 0;
+
+    color: #17213e;
+
+    font-size: 32px;
+
+    line-height: 1.2;
+
+    font-weight: 750;
+}
+
+
+.page-header p {
+    margin: 10px 0 0;
+
+    color: #7c8599;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   NOTIFICATION SECTION
+   ========================================================= */
+
+.notifications-section {
+    width: 100%;
+
+    max-width: 1050px;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+   ========================================================= */
+
+.notification-section-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+}
+
+
+.notification-section-header h2 {
+    margin: 0;
+
+    color: #17213e;
+
+    font-size: 19px;
+
+    font-weight: 700;
+}
+
+
+.notification-section-header p {
+    margin: 6px 0 0;
+
+    color: #8991a4;
+
+    font-size: 11px;
+}
+
+
+.notification-count {
+    padding: 8px 13px;
+
+    border-radius: 8px;
+
+    background: #eeecff;
+
+    color: #6254f5;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   NOTIFICATION LIST
+   ========================================================= */
+
+.notification-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   NOTIFICATION CARD
+   ========================================================= */
+
+.notification-card {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 17px;
+
+    padding: 21px 23px;
+
+    background: #ffffff;
+
+    border: 1px solid #e8eaf0;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 4px 18px rgba(27, 38, 72, 0.045);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.notification-card:hover {
+    transform: translateY(-2px);
+
+    border-color: #dcd9ff;
+
+    box-shadow:
+        0 10px 28px rgba(27, 38, 72, 0.08);
+}
+
+
+/* =========================================================
+   NOTIFICATION ICON
+   ========================================================= */
+
+.notification-icon {
+    width: 48px;
+
+    height: 48px;
+
+    min-width: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: #eeecff;
+
+    color: #6254f5;
+
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   NOTIFICATION CONTENT
+   ========================================================= */
+
+.notification-content {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.notification-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+.notification-title h3 {
+    margin: 0;
+
+    color: #202a45;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   NEW BADGE
+   ========================================================= */
+
+.new-badge {
+    padding: 4px 7px;
+
+    border-radius: 5px;
+
+    background: #e7f8f1;
+
+    color: #15966c;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   NOTIFICATION DESCRIPTION
+   ========================================================= */
+
+.notification-content > p {
+    margin: 7px 0 12px;
+
+    color: #747e92;
+
+    font-size: 12px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   NOTIFICATION DETAILS
+   ========================================================= */
+
+.notification-details {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+}
+
+
+.notification-details span {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 7px 10px;
+
+    background: #f7f8fb;
+
+    border-radius: 7px;
+
+    color: #68738a;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+.notification-details i {
+    color: #6254f5;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   VIEW MATCH
+   ========================================================= */
+
+.view-match {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-top: 13px;
+
+    color: #6254f5;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    transition: gap 0.2s ease;
+}
+
+
+.view-match:hover {
+    gap: 9px;
+
+    color: #4d40df;
+}
+
+
+/* =========================================================
+   EMPTY NOTIFICATIONS
+   ========================================================= */
+
+.empty-notifications {
+    width: 100%;
+
+    padding: 80px 30px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 1px solid #e7e9f0;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 4px 18px rgba(27, 38, 72, 0.045);
+}
+
+
+/* =========================================================
+   EMPTY ICON
+   ========================================================= */
+
+.empty-icon {
+    width: 68px;
+
+    height: 68px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eeecff;
+
+    color: #6254f5;
+
+    font-size: 23px;
+}
+
+
+/* =========================================================
+   EMPTY TITLE
+   ========================================================= */
+
+.empty-notifications h2 {
+    margin: 0;
+
+    color: #202a45;
+
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   EMPTY DESCRIPTION
+   ========================================================= */
+
+.empty-notifications p {
+    max-width: 420px;
+
+    margin: 9px auto 22px;
+
+    color: #858da0;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   DASHBOARD BUTTON
+   ========================================================= */
+
+.dashboard-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 11px 17px;
+
+    border-radius: 9px;
+
+    background: #6254f5;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    transition: all 0.2s ease;
+}
+
+
+.dashboard-btn:hover {
+    background: #5143df;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 220px;
+    }
+
+    .main-content {
+        margin-left: 220px;
+
+        width: calc(100% - 220px);
+
+        padding: 35px 30px 50px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        width: 70px;
+
+        padding: 25px 10px;
+    }
+
+    .brand span,
+    .sidebar li a span {
+        display: none;
+    }
+
+    .brand {
+        justify-content: center;
+
+        padding: 0;
+
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .sidebar li a {
+        justify-content: center;
+
+        padding: 14px 0;
+    }
+
+    .sidebar li a i {
+        margin: 0;
+    }
+
+    .main-content {
+        margin-left: 70px;
+
+        width: calc(100% - 70px);
+
+        padding: 28px 18px;
+    }
+
+    .page-header h1 {
+        font-size: 27px;
+    }
+
+    .notification-section-header {
+        align-items: flex-start;
+
+        gap: 12px;
+    }
+
+    .notification-card {
+        padding: 17px;
+    }
+}

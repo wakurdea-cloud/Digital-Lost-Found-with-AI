@@ -1,0 +1,1844 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | LostAI{% endblock %}
+
+{% block css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- ================= SIDEBAR ================= -->
+   <aside class="sidebar">
+
+    <div class="brand">
+        <i class="fa-solid fa-location-crosshairs"></i>
+        <span>LostAI</span>
+    </div>
+
+    <ul>
+
+        <li>
+            <a href="/dashboard">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/report-lost">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>Report Lost</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/report-found">
+                <i class="fa-solid fa-box-open"></i>
+                <span>Report Found</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/matches">
+                <i class="fa-solid fa-robot"></i>
+                <span>AI Matches</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/notifications">
+                <i class="fa-solid fa-bell"></i>
+                <span>Notifications</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/my-reports">
+                <i class="fa-solid fa-folder-open"></i>
+                <span>My Reports</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/profile">
+                <i class="fa-solid fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+    
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div class="mobile-menu">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </div>
+
+           <div class="search-wrapper">
+         <div class="dashboard-search">
+
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            type="text"
+            id="dashboardSearch"
+            placeholder="Search your reports..."
+            autocomplete="off">
+
+        <span class="search-clear" id="searchClear">
+            <i class="fa-solid fa-xmark"></i>
+        </span>
+    </div>
+
+    <div id="searchResults" class="search-dropdown"></div>
+
+</div>
+    </div>
+
+
+            <div class="topbar-right">
+
+
+                <!-- Notification -->
+
+                <!-- NOTIFICATION -->
+
+      <div class="notification-wrapper">
+
+    <!-- BELL BUTTON -->
+    <button
+        class="icon-button notification-btn"
+        id="notificationBtn"
+        type="button"
+        aria-label="Notifications">
+
+        <i class="fa-regular fa-bell"></i>
+
+        {% if notifications and notifications|length > 0 %}
+            <span class="notification-dot">
+                {{ notifications|length }}
+            </span>
+        {% endif %}
+        </button>
+       
+
+
+    <!-- NOTIFICATION DROPDOWN -->
+
+    <div class="notification-dropdown" id="notificationDropdown">
+
+        <div class="notification-dropdown-header">
+
+            <div>
+                <h3>Notifications</h3>
+               
+                <p>
+                    {% if notifications %}
+                        {{ notifications|length }} new notification
+                    {% else %}
+                        No new notifications
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="notification-header-icon">
+                <i class="fa-regular fa-bell"></i>
+            </div>
+
+        </div>
+
+
+        {% if notifications %}
+
+            <div class="notification-list">
+
+                {% for notification in notifications[:5] %}
+
+                <a href="/match-details/{{ notification.id }}"
+                   class="notification-item">
+
+                    <div class="notification-item-icon">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+
+                    <div class="notification-item-content">
+
+                        <strong>
+                            AI Match Found
+                        </strong>
+
+                        <p>
+                            {{ notification.lost_item }}
+                            ↔
+                            {{ notification.found_item }}
+                        </p>
+
+                        <span>
+                            Match Score: {{ notification.score }}%
+                        </span>
+
+                    </div>
+
+                </a>
+
+                {% endfor %}
+
+            </div>
+
+
+             <a href="/notifications"
+   class="notification-view-all"
+   onclick="window.location.href='/notifications'; return false;">
+
+    View All Notifications
+    <i class="fa-solid fa-arrow-right"></i>
+
+</a>
+
+        {% else %}
+
+            <div class="notification-empty">
+
+                <i class="fa-regular fa-bell-slash"></i>
+
+                <h4>No new notifications</h4>
+
+                <p>
+                    You're all caught up!
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+                <!-- User -->
+            <!-- User -->
+
+<a href="{{ url_for('profile') }}" class="profile-mini-link">
+
+    <div class="profile-mini">
+
+        <div class="avatar">
+            {{ username[0]|upper }}
+        </div>
+
+        <div class="profile-text">
+
+            <strong>
+                {{ username }}
+            </strong>
+
+            <span>
+            </span>
+
+        </div>
+
+        <i class="fa-solid fa-chevron-down"></i>
+
+    </div>
+
+</a>
+            
+
+        </header>
+
+
+
+        <!-- ================= PAGE HEADER ================= -->
+
+        <section class="page-header">
+
+            <div class="page-title-area">
+
+                <p class="welcome-small">
+                    
+                </p>
+
+                <h1>
+                    Welcome back, {{ username }} 👋
+                </h1>
+
+                <p class="page-subtitle">
+                
+                </p>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <a href="/report-lost"
+                   class="secondary-action">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    Report Lost
+
+                </a>
+
+
+                <a href="/report-found"
+                   class="primary-action">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Report Found
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="stats-grid">
+
+
+            <!-- LOST -->
+
+            <div class="stat-card lost-stat">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-circle-exclamation"></i>
+
+                    </div>
+
+                    <span class="stat-label">
+                        LOST ITEMS
+                    </span>
+
+                </div>
+
+
+                <div class="stat-number">
+
+                    {{ lost_count }}
+
+                </div>
+
+
+                <div class="stat-bottom">
+
+                    <span class="stat-status">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        Your reports
+
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right card-arrow"></i>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FOUND -->
+
+            <div class="stat-card found-stat">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-box-open"></i>
+
+                    </div>
+
+                    <span class="stat-label">
+                        FOUND ITEMS
+                    </span>
+
+                </div>
+
+
+                <div class="stat-number">
+
+                    {{ found_count }}
+
+                </div>
+
+
+                <div class="stat-bottom">
+
+                    <span class="stat-status">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        Reported items
+
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right card-arrow"></i>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- AI MATCH -->
+
+            <div class="stat-card ai-stat">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-robot"></i>
+
+                    </div>
+
+                    <span class="stat-label">
+                        AI MATCHES
+                    </span>
+
+                </div>
+
+
+                <div class="stat-number">
+
+                    {{ match_count }}
+
+                </div>
+
+
+                <div class="stat-bottom">
+
+                    <span class="stat-status ai-status">
+
+                        <i class="fa-solid fa-sparkles"></i>
+
+                        Potential matches
+
+                    </span>
+
+
+                    <a href="/matches">
+
+                        <i class="fa-solid fa-arrow-right card-arrow"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ACCURACY -->
+
+            <div class="stat-card accuracy-stat">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-bullseye"></i>
+
+                    </div>
+
+                    <span class="stat-label">
+                        AI ACCURACY
+                    </span>
+
+                </div>
+
+
+                <div class="stat-number">
+
+                    {{ accuracy }}<small>%</small>
+
+                </div>
+
+
+                <div class="stat-bottom">
+
+                    <span class="stat-status">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        Match confidence
+
+                    </span>
+
+
+                    <div class="accuracy-mini">
+
+                        {{ accuracy }}%
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= QUICK ACTIONS ================= -->
+
+        <section class="quick-actions">
+
+            <div class="section-heading">
+
+                <span class="section-eyebrow">
+                    
+                </span>
+
+                <h2>
+                    Quick Actions
+                </h2>
+
+            </div>
+
+
+            <div class="action-grid">
+
+
+                <!-- REPORT LOST -->
+
+                <a href="/report-lost"
+                   class="action-card">
+
+                    <div class="action-icon lost-action">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                    </div>
+
+
+                    <div class="action-content">
+
+                        <h3>
+                            Report Lost Item
+                        </h3>
+
+                        <p>
+                            Tell us what you lost
+                        </p>
+
+                    </div>
+
+
+                    <i class="fa-solid fa-arrow-right action-arrow"></i>
+
+                </a>
+
+
+
+                <!-- REPORT FOUND -->
+
+                <a href="/report-found"
+                   class="action-card">
+
+                    <div class="action-icon found-action">
+
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+
+                    </div>
+
+
+                    <div class="action-content">
+
+                        <h3>
+                            Report Found Item
+                        </h3>
+
+                        <p>
+                            Help someone find it
+                        </p>
+
+                    </div>
+
+
+                    <i class="fa-solid fa-arrow-right action-arrow"></i>
+
+                </a>
+
+
+
+                <!-- AI MATCHES -->
+
+                <a href="/matches"
+                   class="action-card">
+
+                    <div class="action-icon ai-action">
+
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                    </div>
+
+
+                    <div class="action-content">
+
+                        <h3>
+                            Explore AI Matches
+                        </h3>
+
+                        <p>
+                            Check potential matches
+                        </p>
+
+                    </div>
+
+
+                    <i class="fa-solid fa-arrow-right action-arrow"></i>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     AI ANALYTICS
+     ===================================================== -->
+
+<section class="analytics-section">
+
+    <div class="analytics-heading">
+
+        <div>
+
+            <span class="section-eyebrow">
+                
+            </span>
+
+            <h2>
+                AI Activity Overview
+            </h2>
+
+            <p>
+            
+            </p>
+
+        </div>
+
+        <div class="analytics-status">
+
+            <span></span>
+            AI SYSTEM ACTIVE
+
+        </div>
+
+    </div>
+
+
+    <div class="analytics-grid">
+
+        <!-- RECOVERY RATE -->
+
+        <div class="analytics-card">
+
+            <div class="analytics-card-top">
+
+                <div>
+
+                    <span class="analytics-label">
+                        RECOVERY RATE
+                    </span>
+
+                    <h3>
+                        {{ recovery_rate }}%
+                    </h3>
+
+                </div>
+
+                <div class="analytics-icon green">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                </div>
+
+            </div>
+
+           <div class="progress-track">
+
+    <div
+        class="progress-fill"
+        data-recovery-rate="{{ recovery_rate }}">
+    </div>
+
+</div>
+
+<p>
+    {{ recovered_count }} successfully approved matches
+</p>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const progressFill = document.querySelector(".progress-fill");
+
+    if (progressFill) {
+
+        let rate = parseFloat(
+            progressFill.dataset.recoveryRate
+        ) || 0;
+
+        // Keep value between 0 and 100
+        rate = Math.max(0, Math.min(rate, 100));
+
+        progressFill.style.width = rate + "%";
+    }
+
+});
+</script>
+
+        </div>
+
+
+        <!-- HIGH CONFIDENCE -->
+
+        <div class="analytics-card">
+
+            <div class="analytics-card-top">
+
+                <div>
+
+                    <span class="analytics-label">
+                        HIGH CONFIDENCE
+                    </span>
+
+                    <h3>
+                        {{ high_confidence }}
+                    </h3>
+
+                </div>
+
+                <div class="analytics-icon purple">
+
+                    <i class="fa-solid fa-bullseye"></i>
+
+                </div>
+
+            </div>
+
+            <div class="analytics-description">
+
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                Matches above 80% AI confidence
+
+            </div>
+
+        </div>
+
+
+        <!-- PENDING -->
+
+        <div class="analytics-card">
+
+            <div class="analytics-card-top">
+
+                <div>
+
+                    <span class="analytics-label">
+                        PENDING MATCHES
+                    </span>
+
+                    <h3>
+                        {{ pending_matches }}
+                    </h3>
+
+                </div>
+
+                <div class="analytics-icon orange">
+
+                    <i class="fa-solid fa-hourglass-half"></i>
+
+                </div>
+
+            </div>
+
+            <div class="analytics-description">
+
+                <i class="fa-solid fa-clock"></i>
+
+                Waiting for claim verification
+
+            </div>
+
+        </div>
+
+
+        <!-- CONTRIBUTION -->
+
+        <div class="analytics-card">
+
+            <div class="analytics-card-top">
+
+                <div>
+
+                    <span class="analytics-label">
+                        CONTRIBUTION SCORE
+                    </span>
+
+                    <h3>
+                        {{ contribution_points }}
+                    </h3>
+
+                </div>
+
+                <div class="analytics-icon blue">
+
+                    <i class="fa-solid fa-trophy"></i>
+
+                </div>
+
+            </div>
+
+            <div class="contribution-level">
+
+                <i class="fa-solid fa-medal"></i>
+
+                {{ contribution_level }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- AI INSIGHT -->
+
+    <div class="ai-insight">
+
+        <div class="insight-icon">
+
+            <i class="fa-solid fa-robot"></i>
+
+        </div>
+
+
+        <div class="insight-content">
+
+            <span>
+                AI INSIGHT
+            </span>
+
+            {% if match_count > 0 %}
+
+                <h3>
+
+                    LostAI detected
+                    <strong>{{ match_count }}</strong>
+                    potential matches.
+
+                </h3>
+
+                <p>
+
+                    {{ high_confidence }}
+                    matches have an AI confidence score
+                    above 80%.
+
+                </p>
+
+            {% else %}
+
+                <h3>
+                    No potential matches detected yet.
+                </h3>
+
+                <p>
+                    Report a lost or found item to let AI
+                    search for possible matches.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <a href="/matches" class="insight-button">
+
+            Explore Matches
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+        <!-- ================= TWO COLUMN ================= -->
+
+        <section class="dashboard-columns">
+
+
+            <!-- ================= AI NOTIFICATIONS ================= -->
+
+            <div class="dashboard-panel notifications-panel">
+
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            AI ACTIVITY
+                        </span>
+
+                        <h2>
+
+                            <i class="fa-solid fa-robot"></i>
+
+                            AI Notifications
+
+                        </h2>
+
+                    </div>
+
+
+                    <span class="live-badge">
+
+                        <span></span>
+
+                        LIVE
+
+                    </span>
+
+                </div>
+
+
+
+                {% if notifications %}
+
+                <div class="notification-list">
+
+
+                    {% for n in notifications %}
+
+                    <div class="notification-card">
+
+
+                        <div class="notification-icon">
+
+                            {% if n.finder_status == "Approved" %}
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                            {% elif n.finder_status == "Rejected" %}
+
+                                <i class="fa-solid fa-circle-xmark"></i>
+
+                            {% elif n.claim_status == "Claim Requested" %}
+
+                                <i class="fa-solid fa-hand"></i>
+
+                            {% else %}
+
+                                <i class="fa-solid fa-robot"></i>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="notification-content">
+
+
+                            {% if n.finder_status == "Approved"
+                                  and n.lost_user == user_id %}
+
+                                <h3>
+                                    Claim Approved 🎉
+                                </h3>
+
+                                <p>
+                                    Your claim has been approved
+                                    by the finder.
+                                </p>
+
+                                <a href="/match-details/{{ n.id }}"
+                                   class="small-link">
+
+                                    View Details
+
+                                    <i class="fa-solid fa-arrow-right"></i>
+
+                                </a>
+
+
+                            {% elif n.finder_status == "Rejected"
+                                  and n.lost_user == user_id %}
+
+                                <h3>
+                                    Claim Rejected
+                                </h3>
+
+                                <p>
+                                    Your claim request was
+                                    rejected by the finder.
+                                </p>
+
+
+                            {% elif n.claim_status == "Claim Requested"
+                                  and n.found_user == user_id %}
+
+                                <h3>
+                                    New Claim Request
+                                </h3>
+
+                                <p>
+
+                                    Someone has claimed your
+                                    found item
+
+                                    <strong>
+                                        {{ n.found_item }}
+                                    </strong>.
+
+                                </p>
+
+
+                                <div class="notification-actions">
+
+                                    <a href="/accept-claim/{{ n.id }}"
+                                       class="accept-btn">
+
+                                        <i class="fa-solid fa-check"></i>
+
+                                        Accept
+
+                                    </a>
+
+
+                                    <a href="/reject-claim/{{ n.id }}"
+                                       class="reject-btn">
+
+                                        <i class="fa-solid fa-xmark"></i>
+
+                                        Reject
+
+                                    </a>
+
+                                </div>
+
+
+                            {% elif n.lost_user == user_id %}
+
+                                <h3>
+                                    AI Found a Possible Match ✨
+                                </h3>
+
+                                <p>
+
+                                    Your lost item
+
+                                    <strong>
+                                        {{ n.lost_item }}
+                                    </strong>
+
+                                    may have been found.
+
+                                </p>
+
+
+                                <div class="match-confidence">
+
+                                    AI Confidence
+
+                                    <strong>
+                                        {{ n.score }}%
+                                    </strong>
+
+                                </div>
+
+
+                                <a href="/match-details/{{ n.id }}"
+                                   class="small-link">
+
+                                    View Match
+
+                                    <i class="fa-solid fa-arrow-right"></i>
+
+                                </a>
+
+
+                            {% else %}
+
+                                <h3>
+                                    Possible Owner Found
+                                </h3>
+
+                                <p>
+
+                                    Your found item
+
+                                    <strong>
+                                        {{ n.found_item }}
+                                    </strong>
+
+                                    may belong to someone.
+
+                                </p>
+
+
+                                <div class="match-confidence">
+
+                                    AI Confidence
+
+                                    <strong>
+                                        {{ n.score }}%
+                                    </strong>
+
+                                </div>
+
+
+                                <a href="/match-details/{{ n.id }}"
+                                   class="small-link">
+
+                                    View Match
+
+                                    <i class="fa-solid fa-arrow-right"></i>
+
+                                </a>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                {% else %}
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+
+                        <i class="fa-solid fa-robot"></i>
+
+                    </div>
+
+                    <h3>
+                        No AI notifications yet
+                    </h3>
+
+                    <p>
+                        We'll notify you when our AI
+                        finds a potential match.
+                    </p>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- ================= RECENT REPORTS ================= -->
+
+            <div class="dashboard-panel reports-panel">
+
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            
+                        </span>
+
+                        <h2>
+                            Recent Reports
+                        </h2>
+
+                    </div>
+
+
+                    <a href="/my-reports"
+                       class="view-all">
+
+                        View All
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+
+
+                {% if recent_reports %}
+
+                <div class="reports-list">
+
+
+                    {% for report in recent_reports %}
+
+                    <div class="report-card">
+
+
+                        <div class="report-image">
+
+    {% if report.image %}
+        <img
+            src="{{ url_for('static', filename='uploads/' + report.image) }}"
+            alt="Item">
+    {% else %}
+        <div class="no-image">
+            <i class="fa-regular fa-image"></i>
+            <span>No Image</span>
+        </div>
+    {% endif %}
+
+</div>
+
+                        <div class="report-info">
+
+
+                            <div class="report-title-row">
+
+                                <h3>
+                                    {{ report.item_name }}
+                                </h3>
+
+
+                                {% if report.type == "Lost" %}
+
+                                    <span class="lost-tag">
+                                        LOST
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="found-tag">
+                                        FOUND
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <p>
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                {{ report.location }}
+
+                            </p>
+
+
+                            <small>
+
+                                <i class="fa-regular fa-calendar"></i>
+
+                                {{ report.report_date }}
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                {% else %}
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+
+                        <i class="fa-solid fa-box-open"></i>
+
+                    </div>
+
+                    <h3>
+                        No Reports Yet
+                    </h3>
+
+                    <p>
+                        You haven't reported any lost
+                        or found items yet.
+                    </p>
+
+
+                    <div class="empty-buttons">
+
+                        <a href="/report-lost">
+                            Report Lost
+                        </a>
+
+                        <a href="/report-found">
+                            Report Found
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= CLAIM REQUESTS ================= -->
+
+        {% if claim_requests %}
+
+        <section class="claim-section">
+
+
+            <div class="panel-header">
+
+                <div>
+
+                    <span class="section-eyebrow">
+                        ACTION REQUIRED
+                    </span>
+
+                    <h2>
+
+                        <i class="fa-solid fa-shield-heart"></i>
+
+                        Pending Claim Requests
+
+                    </h2>
+
+                </div>
+
+
+                <span class="pending-badge">
+
+                    {{ claim_requests|length }}
+
+                    Pending
+
+                </span>
+
+            </div>
+
+
+
+            <div class="claim-list">
+
+
+                {% for request in claim_requests %}
+
+                <div class="claim-card">
+
+                      {% if request.image %}
+    <img
+        src="{{ url_for(
+            'static',
+            filename='uploads/' + request.image
+        ) }}"
+        alt="Item">
+{% else %}
+    <div class="no-image">
+        <i class="fa-regular fa-image"></i>
+        <span>No Image</span>
+    </div>
+{% endif %}
+
+
+                    <div class="claim-info">
+
+                        <span class="claim-label">
+                            POTENTIAL CLAIM
+                        </span>
+
+                        <h3>
+                            {{ request.item_name }}
+                        </h3>
+
+                        <p>
+
+                            <i class="fa-solid fa-robot"></i>
+
+                            AI Match Confidence:
+
+                            <strong>
+                                {{ request.score }}%
+                            </strong>
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="claim-buttons">
+
+                        <a
+                            href="/accept-claim/{{ request.id }}"
+                            class="accept-btn">
+
+                            <i class="fa-solid fa-check"></i>
+
+                            Accept
+
+                        </a>
+
+
+                        <a
+                            href="/reject-claim/{{ request.id }}"
+                            class="reject-btn">
+
+                            <i class="fa-solid fa-xmark"></i>
+
+                            Reject
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+        {% endif %}
+
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer class="dashboard-footer">
+
+            <div>
+
+            
+
+                
+
+            </div>
+
+
+            <span>
+
+            
+
+            </span>
+
+        </footer>
+
+
+    </main>
+   <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const notificationBtn =
+        document.getElementById("notificationBtn");
+
+    const notificationDropdown =
+        document.getElementById("notificationDropdown");
+
+    if (!notificationBtn || !notificationDropdown) {
+        return;
+    }
+
+
+    // Open / Close Notification
+    notificationBtn.addEventListener("click", function (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        notificationDropdown.classList.toggle("show");
+
+    });
+
+
+    // Close when clicking outside
+    document.addEventListener("click", function (event) {
+
+        if (
+            !notificationDropdown.contains(event.target) &&
+            !notificationBtn.contains(event.target)
+        ) {
+            notificationDropdown.classList.remove("show");
+        }
+
+    });
+
+
+    // Close with ESC
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+            notificationDropdown.classList.remove("show");
+        }
+
+    });
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const input = document.getElementById("dashboardSearch");
+    const dropdown = document.getElementById("searchResults");
+    const clearBtn = document.getElementById("searchClear");
+
+    if (!input || !dropdown) return;
+
+    let timer;
+
+
+    function escapeHtml(value) {
+
+        const element = document.createElement("div");
+
+        element.textContent = value || "";
+
+        return element.innerHTML;
+    }
+
+
+    function highlight(text, query) {
+
+        const safeText = escapeHtml(text);
+
+        if (!query) return safeText;
+
+        const safeQuery = query.replace(
+            /[.*+?^${}()|[\]\\]/g,
+            "\\$&"
+        );
+
+        return safeText.replace(
+            new RegExp("(" + safeQuery + ")", "gi"),
+            '<span class="search-match">$1</span>'
+        );
+    }
+
+
+    input.addEventListener("input", function () {
+
+        const query = this.value.trim();
+
+        clearTimeout(timer);
+
+
+        /* Show clear icon */
+
+        if (query) {
+            clearBtn.style.display = "flex";
+        } else {
+
+            clearBtn.style.display = "none";
+
+            dropdown.style.display = "none";
+
+            dropdown.innerHTML = "";
+
+            return;
+        }
+
+
+        timer = setTimeout(function () {
+
+            fetch(
+                "/my-reports-search?q=" +
+                encodeURIComponent(query)
+            )
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                dropdown.innerHTML = "";
+
+
+                /* ==========================
+                   NO RESULT
+                   ========================== */
+
+                if (!data || data.length === 0) {
+
+                    dropdown.innerHTML = `
+
+                        <div class="search-empty">
+
+                            <div class="search-empty-icon">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+
+                            <h4>No reports found</h4>
+
+                            <p>
+                                No result matching
+                                "${escapeHtml(query)}"
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    dropdown.style.display = "block";
+
+                    return;
+                }
+
+
+                /* ==========================
+                   HEADER
+                   ========================== */
+
+                dropdown.innerHTML = `
+
+                    <div class="search-dropdown-header">
+
+                        <span>Search Results</span>
+
+                        <span class="search-dropdown-count">
+                            ${data.length}
+                            ${data.length === 1 ? "result" : "results"}
+                        </span>
+
+                    </div>
+
+                `;
+
+
+                /* ==========================
+                   RESULTS
+                   ========================== */
+
+                data.slice(0, 5).forEach(function (item) {
+
+                    const typeClass =
+                        item.type === "Lost"
+                            ? "lost"
+                            : "found";
+
+
+                    const icon =
+                        item.type === "Lost"
+                            ? "fa-magnifying-glass"
+                            : "fa-box-open";
+
+
+                    const result =
+                        document.createElement("div");
+
+                    result.className =
+                        "professional-search-item";
+
+
+                    result.innerHTML = `
+
+                        <div class="search-item-icon ${typeClass}">
+                            <i class="fa-solid ${icon}"></i>
+                        </div>
+
+
+                        <div class="search-item-content">
+
+                            <div class="search-item-title">
+
+                                ${highlight(
+                                    item.item_name,
+                                    query
+                                )}
+
+                            </div>
+
+
+                            <div class="search-item-location">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                ${highlight(
+                                    item.location ||
+                                    "Location not available",
+                                    query
+                                )}
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="search-status ${typeClass}">
+
+                            ${item.type}
+
+                        </span>
+
+
+                        <i
+                            class="fa-solid fa-chevron-right
+                                   search-item-arrow">
+                        </i>
+
+                    `;
+
+
+                    /* Click result */
+
+                    result.addEventListener("click", function () {
+
+                        window.location.href = "/my-reports";
+
+                    });
+
+
+                    dropdown.appendChild(result);
+
+                });
+
+
+                /* ==========================
+                   FOOTER
+                   ========================== */
+
+                const footer =
+                    document.createElement("div");
+
+                footer.className =
+                    "search-dropdown-footer";
+
+                footer.innerHTML = `
+
+                    <i class="fa-solid fa-folder-open"></i>
+                    &nbsp;
+                    Results from your My Reports
+
+                `;
+
+                dropdown.appendChild(footer);
+
+
+                dropdown.style.display = "block";
+
+            })
+
+            .catch(function (error) {
+
+                console.error(
+                    "Search Error:",
+                    error
+                );
+
+            });
+
+        }, 250);
+
+    });
+
+
+    /* ==========================
+       CLEAR SEARCH
+       ========================== */
+
+    clearBtn.addEventListener("click", function () {
+
+        input.value = "";
+
+        clearBtn.style.display = "none";
+
+        dropdown.style.display = "none";
+
+        dropdown.innerHTML = "";
+
+        input.focus();
+
+    });
+
+
+    /* ==========================
+       CLICK OUTSIDE
+       ========================== */
+
+    document.addEventListener("click", function (event) {
+
+        if (!event.target.closest(".dashboard-search")) {
+
+            dropdown.style.display = "none";
+
+        }
+
+    });
+
+
+    /* ==========================
+       ESC KEY
+       ========================== */
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+            input.value = "";
+
+            clearBtn.style.display = "none";
+
+            dropdown.innerHTML = "";
+
+            dropdown.style.display = "none";
+
+            input.blur();
+
+        }
+
+    });
+
+});
+</script>
+</div>
+
+
+{% endblock %}

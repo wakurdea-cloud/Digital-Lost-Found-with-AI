@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+
+{% block title %}Match Details{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/match_details.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <i class="fa-solid fa-location-crosshairs"></i>
+            LostAI
+        </div>
+
+        <ul>
+            <li><a href="/dashboard"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li><a href="/report-lost"><i class="fa-solid fa-circle-exclamation"></i> Report Lost</a></li>
+            <li><a href="/report-found"><i class="fa-solid fa-box-open"></i> Report Found</a></li>
+            <li class="active"><a href="/matches"><i class="fa-solid fa-robot"></i> AI Matches</a></li>
+            <li><a href="/profile"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        </ul>
+
+    </aside>
+
+    <main class="main-content">
+
+        <h1>AI Match Details</h1>
+
+        <div class="comparison-card">
+
+            <!-- Lost Item -->
+            <div class="item-box">
+
+                <h2>Lost Item</h2>
+
+               {% if match.lost_image %}
+    <img src="{{ url_for('static', filename='uploads/' + match.lost_image) }}" alt="Lost Item">
+{% else %}
+    <div class="no-image">
+        <i class="fa-regular fa-image"></i>
+        <span>No Image</span>
+    </div>
+{% endif %}
+
+                <h3>{{ match.lost_item }}</h3>
+
+                <p><b>Location :</b> {{ match.lost_location }}</p>
+
+                <p><b>Date :</b> {{ match.lost_date }}</p>
+
+            </div>
+
+            <!-- Score -->
+
+            <div class="score-box">
+
+                <div class="circle">
+
+                    {{ match.score }}%
+
+                </div>
+
+                <h2>AI Confidence</h2>
+
+                <span>{{ match.status }}</span>
+
+            </div>
+
+            <!-- Found -->
+
+            <div class="item-box">
+
+                <h2>Found Item</h2>
+
+                <img src="{{ url_for('static', filename='uploads/' + match.found_image) }}">
+
+                <h3>{{ match.found_item }}</h3>
+
+                <p><b>Location :</b> {{ match.found_location }}</p>
+
+                <p><b>Date :</b> {{ match.found_date }}</p>
+
+            </div>
+
+        </div>
+
+        <!-- AI Analysis -->
+
+        <div class="analysis">
+
+            <h2>AI Analysis</h2>
+
+            <div class="analysis-grid">
+
+                <div>✅ Item Name Match</div>
+
+                <div>{{ match.item_score }}%</div>
+
+                <div>✅ Location Match</div>
+
+                <div>{{ match.location_score }}%</div>
+
+                <div>✅ Description Match</div>
+
+                <div>{{ match.description_score }}%</div>
+
+                <div>✅ Date Match</div>
+
+                <div>{{ match.date_score }}%</div>
+
+            </div>
+
+        </div>
+
+        <!-- Status -->
+         <!-- Match Status -->
+
+<div class="status-box">
+
+    <h2>Match Status</h2>
+
+    {% if match.claim_status == "Not Claimed" %}
+
+        <h3>🟡 AI Match Found</h3>
+
+        <p>
+            AI has found a possible match. Review the details and claim the item if it belongs to you.
+        </p>
+
+    {% elif match.claim_status == "Claim Requested" %}
+
+        <h3>🔵 Claim Requested</h3>
+
+        <p>
+            Your request has been sent to the finder. Please wait for approval.
+        </p>
+    {% elif match.claim_status == "Approved" %}
+
+    <h3>🟢 Claim Approved</h3>
+
+    <p>
+        Your claim has been approved by the finder.
+    </p>
+
+    {% if match.finder_status == "Approved" %}
+
+        <a href="/chat/{{ match.id }}" class="chat-btn">
+            <i class="fa-solid fa-comments"></i>
+            Contact Finder
+        </a>
+
+    {% endif %}
+
+    {% elif match.claim_status == "Rejected" %}
+
+        <h3>🔴 Claim Rejected</h3>
+
+        <p>
+            Your request was rejected by the finder.
+        </p>
+
+    {% endif %}
+
+</div>
+
+
+<!-- Review Section -->
+{% if match.claim_status == "Approved" and
+      (session['user_id'] == match.lost_user or session['user_id'] == match.found_user) %}
+
+<div class="review-section">
+
+    <div class="review-header">
+        <div>
+            <span class="review-label">RECOVERY EXPERIENCE</span>
+            <h2>Share Your Experience</h2>
+            <p>How was your LostAI recovery experience?</p>
+        </div>
+
+        <i class="fa-solid fa-star review-icon"></i>
+    </div>
+
+    <form action="{{ url_for('submit_review', match_id=match.id) }}"
+          method="POST"
+          class="review-form">
+
+        <div class="rating-area">
+            <label>Your Rating</label>
+
+            <div class="star-rating">
+                <input type="radio" id="star5" name="rating" value="5" required>
+                <label for="star5">★</label>
+
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4">★</label>
+
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3">★</label>
+
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2">★</label>
+
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1">★</label>
+            </div>
+        </div>
+
+        <div class="review-input">
+            <label for="review_text">Your Review</label>
+
+            <textarea
+                id="review_text"
+                name="review_text"
+                rows="4"
+                maxlength="500"
+                placeholder="Tell us about your LostAI experience..."
+                required></textarea>
+
+            <small></small>
+        </div>
+
+        <button type="submit" class="submit-review-btn">
+            <i class="fa-solid fa-paper-plane"></i>
+            Submit Review
+        </button>
+
+    </form>
+
+</div>
+
+{% endif %}
+
+<!-- Buttons -->
+<div class="buttons">
+
+    <!-- Claim button ONLY for Lost Item owner -->
+    {% if session['user_id'] == match.lost_user %}
+
+        {% if match.claim_status == "Not Claimed" %}
+
+            <a href="{{ url_for('claim_item', match_id=match.id) }}"
+               class="claim-btn">
+                <i class="fa-solid fa-hand"></i>
+                Claim Item
+            </a>
+
+        {% elif match.claim_status == "Claim Requested" %}
+
+            <button class="claim-btn" disabled>
+                <i class="fa-solid fa-clock"></i>
+                Claim Requested
+            </button>
+
+        {% elif match.claim_status == "Approved" %}
+
+            <button class="claim-btn" disabled>
+                <i class="fa-solid fa-check"></i>
+                Claim Approved
+            </button>
+
+        {% elif match.claim_status == "Rejected" %}
+
+            <button class="claim-btn" disabled>
+                <i class="fa-solid fa-xmark"></i>
+                Claim Rejected
+            </button>
+
+        {% endif %}
+
+    {% endif %}
+
+
+    <a href="/matches" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back
+    </a>
+
+</div>
+
+{% endblock %}

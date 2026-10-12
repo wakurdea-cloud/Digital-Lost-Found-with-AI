@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+
+{% block title %}Report Lost Item{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/report_found.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <<!-- Sidebar -->
+     <aside class="sidebar">
+
+    <div class="brand">
+        <i class="fa-solid fa-location-crosshairs"></i>
+        <span>LostAI</span>
+    </div>
+
+    <ul>
+
+        <li>
+            <a href="/dashboard">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/report-lost">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>Report Lost</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/report-found">
+                <i class="fa-solid fa-box-open"></i>
+                <span>Report Found</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/matches">
+                <i class="fa-solid fa-robot"></i>
+                <span>AI Matches</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/notifications">
+                <i class="fa-solid fa-bell"></i>
+                <span>Notifications</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/my-reports">
+                <i class="fa-solid fa-folder-open"></i>
+                <span>My Reports</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/profile">
+                <i class="fa-solid fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+
+    <!-- Main Content -->
+
+    <main class="main-content">
+
+        <div class="page-header">
+
+            <h1>Report found Item</h1>
+
+            <p>
+                Upload your found item and let AI automatically search for matching reports.
+            </p>
+
+        </div>
+
+        <div class="report-card">
+
+            <form action="/report-found" method="POST" enctype="multipart/form-data">
+
+                <!-- Image Upload -->
+
+                <div class="upload-box">
+
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                    <h3>Upload Item Photo</h3>
+
+                    <p>PNG, JPG or JPEG</p>
+
+                    <input
+                        type="file"
+                        name="image"
+                        id="imageInput"
+                        accept="image/*"
+                        required>
+
+                </div>
+
+                <!-- Preview -->
+
+                <div class="preview">
+
+                    <img id="previewImage">
+
+                </div>
+
+                <!-- Item Name -->
+
+                <div class="input-group">
+
+                    <label>Item Name</label>
+
+                    <input
+                        type="text"
+                        name="item_name"
+                        placeholder="Example : Black Wallet"
+                        required>
+
+                </div>
+
+                <!-- Location -->
+
+                <div class="input-group">
+
+                    <label>Lost Location</label>
+
+                    <input
+                        type="text"
+                        name="location"
+                        placeholder="Example : Dadar Railway Station"
+                        required>
+
+                </div>
+
+                <!-- Date -->
+
+                <div class="input-group">
+
+                    <label>Lost Date</label>
+
+                    <input
+                        type="date"
+                        name="found_date"
+                        required>
+
+                </div>
+
+                <!-- Description -->
+
+                <div class="input-group">
+
+                    <label>Description (Optional)</label>
+
+                    <textarea
+                        name="description"
+                        rows="5"
+                        placeholder="Add extra details if required..."></textarea>
+
+                </div>
+
+                <!-- AI Notice -->
+
+                <div class="ai-box">
+
+                    <i class="fa-solid fa-robot"></i>
+
+                    AI will automatically detect object type, colour,
+                    features and compare it with all found items.
+
+                </div>
+
+                <!-- Button -->
+
+                <button class="submit-btn">
+
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                    Submit found Report
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/report_found.js') }}"></script>
+
+{% endblock %}

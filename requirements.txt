@@ -1,0 +1,14 @@
+Flask
+mysql-connector-python
+Werkzeug
+opencv-python
+tensorflow
+sentence-transformers
+scikit-learn
+pandas
+numpy
+matplotlib
+Pillow
+Flask-Login
+Flask-Mail
+python-dotenv

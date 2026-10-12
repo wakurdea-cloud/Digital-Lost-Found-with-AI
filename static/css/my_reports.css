@@ -1,0 +1,622 @@
+
+/* =========================================================
+   LOSTAI - REPORT LOST PAGE
+   DASHBOARD NAVBAR - EXACT SAME
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #f5f7fb;
+    color: #0f172a;
+}
+
+
+/* =========================================================
+   DASHBOARD LAYOUT
+   ========================================================= */
+
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+
+/* =========================================================
+   SIDEBAR / NAVBAR
+   EXACT DASHBOARD STYLE
+   ========================================================= */
+
+.sidebar {
+    width: 260px;
+    min-height: 100vh;
+
+    background: #0b1428;
+
+    padding: 30px 18px;
+
+    flex-shrink: 0;
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    overflow-y: auto;
+
+    z-index: 1000;
+}
+
+
+/* =========================================================
+   LOSTAI LOGO
+   ========================================================= */
+
+.brand {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin: 5px 10px 42px;
+
+    color: #ffffff;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    line-height: 1;
+}
+
+.brand i {
+    color: #ffffff;
+
+    font-size: 27px;
+
+    width: 27px;
+
+    text-align: center;
+}
+
+.brand span {
+    color: #ffffff;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 28px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   SIDEBAR MENU
+   ========================================================= */
+
+.sidebar ul {
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 8px 0;
+
+    padding: 0;
+}
+
+
+/* =========================================================
+   NAVBAR LINKS
+   ========================================================= */
+
+.sidebar ul li a {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    width: 100%;
+
+    min-height: 48px;
+
+    padding: 14px 17px;
+
+    color: #cbd5e1;
+
+    background: transparent;
+
+    text-decoration: none;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    line-height: 1.2;
+
+    border-radius: 14px;
+
+    transition: all 0.25s ease;
+}
+
+
+/* =========================================================
+   NAVBAR ICONS
+   ========================================================= */
+
+.sidebar ul li a i {
+    width: 20px;
+
+    min-width: 20px;
+
+    text-align: center;
+
+    font-size: 16px;
+
+    color: #cbd5e1;
+
+    transition: all 0.25s ease;
+}
+
+
+/* =========================================================
+   NAVBAR TEXT
+   ========================================================= */
+
+.sidebar ul li a span {
+    color: #cbd5e1;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    transition: all 0.25s ease;
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.sidebar ul li a:hover {
+    background: rgba(255, 255, 255, 0.08);
+
+    color: #ffffff;
+
+    transform: translateX(2px);
+}
+
+.sidebar ul li a:hover i {
+    color: #ffffff;
+}
+
+.sidebar ul li a:hover span {
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   ACTIVE REPORT LOST
+   SAME DARK ACTIVE STYLE
+   ========================================================= */
+
+.sidebar ul li.active a {
+    background: rgba(255, 255, 255, 0.10);
+
+    color: #ffffff;
+
+    box-shadow: none;
+
+    transform: none;
+}
+
+.sidebar ul li.active a i {
+    color: #ffffff;
+}
+
+.sidebar ul li.active a span {
+    color: #ffffff;
+
+    font-weight: 600;
+}
+
+
+
+
+/* ================================
+   MAIN CONTENT
+   ================================ */
+
+.main-content {
+    flex: 1;
+
+    background: #f5f7fb;
+
+    padding: 42px 36px;
+
+    min-width: 0;
+}
+
+/* ================================
+   PAGE TITLE
+   ================================ */
+
+.page-title {
+    margin: 0 0 28px 0;
+
+    font-size: 36px;
+    font-weight: 700;
+
+    color: #10213f;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-title i {
+    color: #10213f;
+}
+
+/* ================================
+   REPORT CARD
+   ================================ */
+
+/* IMPORTANT:
+   Keep reports compact */
+.report-card {
+    width: 100%;
+    max-width: 1050px;
+
+    min-height: 145px;
+
+    background: #ffffff;
+
+    border: 1px solid #e3e8f0;
+
+    border-radius: 18px;
+
+    padding: 20px 24px;
+
+    margin-bottom: 18px;
+
+    display: flex;
+    align-items: center;
+    gap: 25px;
+
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+
+    transition: 0.25s;
+}
+
+/* Hover */
+.report-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.10);
+}
+
+/* ================================
+   REPORT IMAGE
+   ================================ */
+
+.report-card > img {
+    width: 110px;
+    height: 110px;
+
+    min-width: 110px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    border: 1px solid #e2e8f0;
+
+    background: #f8fafc;
+}
+
+/* ================================
+   INFORMATION
+   ================================ */
+
+.report-card .info {
+    flex: 1;
+    min-width: 0;
+}
+
+.report-card .info h2 {
+    margin: 0 0 9px 0;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    color: #10213f;
+}
+
+.report-card .info p {
+    margin: 6px 0;
+
+    font-size: 14px;
+
+    color: #64748b;
+}
+
+.report-card .info p i {
+    width: 18px;
+
+    color: #64748b;
+
+    margin-right: 5px;
+}
+
+/* ================================
+   STATUS
+   ================================ */
+
+.report-card .lost,
+.report-card .found {
+    display: inline-block;
+
+    margin-top: 8px;
+
+    padding: 7px 16px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Lost */
+.report-card .lost {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* Found */
+.report-card .found {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+/* ================================
+   ACTION BUTTONS
+   ================================ */
+
+.actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-left: auto;
+}
+
+/* Common buttons */
+.edit-btn,
+.delete-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 11px 17px;
+
+    border-radius: 9px;
+
+    text-decoration: none;
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+/* Edit */
+.edit-btn {
+    background: #18a9e8;
+}
+
+.edit-btn:hover {
+    background: #078cca;
+    transform: translateY(-1px);
+}
+
+/* Delete */
+.delete-btn {
+    background: #ef4444;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
+}
+
+/* ================================
+   EMPTY STATE
+   ================================ */
+
+.empty {
+    max-width: 1050px;
+
+    background: #ffffff;
+
+    border: 1px solid #e3e8f0;
+
+    border-radius: 18px;
+
+    padding: 60px 30px;
+
+    text-align: center;
+
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+}
+
+.empty i {
+    font-size: 55px;
+
+    color: #38bdf8;
+
+    margin-bottom: 15px;
+}
+
+.empty h2 {
+    margin: 10px 0;
+
+    color: #10213f;
+
+    font-size: 24px;
+}
+
+.empty p {
+    color: #64748b;
+
+    font-size: 15px;
+}
+
+/* ================================
+   FLASH MESSAGE
+   ================================ */
+
+.flash-message {
+    position: fixed;
+
+    top: 25px;
+    right: 25px;
+
+    z-index: 9999;
+
+    padding: 14px 22px;
+
+    border-radius: 10px;
+
+    color: white;
+
+    font-weight: 600;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+
+    transition: opacity 0.5s;
+}
+
+.flash-message.success {
+    background: #22c55e;
+}
+
+.flash-message.error {
+    background: #ef4444;
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 220px;
+        min-width: 220px;
+    }
+
+    .main-content {
+        padding: 30px 22px;
+    }
+
+    .report-card {
+        padding: 18px;
+        gap: 18px;
+    }
+
+    .report-card > img {
+        width: 90px;
+        height: 90px;
+        min-width: 90px;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        width: 200px;
+        min-width: 200px;
+    }
+
+    .page-title {
+        font-size: 28px;
+    }
+
+    .report-card {
+        flex-wrap: wrap;
+    }
+
+    .actions {
+        width: 100%;
+        flex-direction: row;
+        margin-left: 0;
+    }
+
+}
+
+@media (max-width: 550px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        padding: 25px 15px;
+    }
+
+    .report-card {
+        align-items: flex-start;
+    }
+
+    .report-card > img {
+        width: 80px;
+        height: 80px;
+        min-width: 80px;
+    }
+
+    .report-card .info h2 {
+        font-size: 19px;
+    }
+
+    .actions {
+        width: 100%;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        flex: 1;
+    }
+
+}

@@ -1,0 +1,718 @@
+{% extends "base.html" %}
+
+{% block title %}Lost & Found AI{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        <i class="fa-solid fa-location-crosshairs"></i>
+        Lost<span>AI</span>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="/login">Login</a></li>
+
+        <li>
+            <a href="/signup" class="signup-btn">
+                Get Started
+            </a>
+        </li>
+    </ul>
+
+</nav>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span class="hero-tag">
+            🚀 AI Powered Recovery Platform
+        </span>
+
+        <h1>
+            Recover Lost Items <br>
+            <span>Using Artificial Intelligence</span>
+        </h1>
+
+        <p>
+            Upload lost or found items and let AI compare images,
+            descriptions and locations to find the best match in seconds.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="/signup" class="primary-btn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Report Lost
+            </a>
+
+            <a href="/signup" class="secondary-btn">
+                <i class="fa-solid fa-box-open"></i>
+                Report Found
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="hero-image">
+
+        <img src="{{ url_for('static', filename='images/hero.png') }}"
+             alt="Lost & Found AI">
+
+    </div>
+
+</section>
+
+<!-- ================= FEATURES ================= -->
+
+<section class="features" id="features">
+
+    <h2>Powerful AI Features</h2>
+
+    <p class="subtitle">
+        Our AI-powered system helps users recover lost belongings quickly and efficiently.
+    </p>
+
+    <div class="feature-container">
+
+        <div class="feature-card">
+            <i class="fa-solid fa-camera"></i>
+            <h3>Image Recognition</h3>
+            <p>AI compares uploaded images and finds visually similar objects.</p>
+        </div>
+
+        <div class="feature-card">
+            <i class="fa-solid fa-location-dot"></i>
+            <h3>Location Matching</h3>
+            <p>Matches lost and found reports based on nearby locations.</p>
+        </div>
+
+        <div class="feature-card">
+            <i class="fa-solid fa-brain"></i>
+            <h3>Smart Description</h3>
+            <p>Natural Language Processing compares descriptions intelligently.</p>
+        </div>
+
+        <div class="feature-card">
+            <i class="fa-solid fa-bell"></i>
+            <h3>Instant Alerts</h3>
+            <p>Users receive notifications whenever AI finds a possible match.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= STATS ================= -->
+
+<section class="stats">
+
+    <div class="stat-card">
+        <h2 class="counter" data-target="1500">0</h2>
+        <p>Lost Reports</p>
+    </div>
+
+    <div class="stat-card">
+        <h2 class="counter" data-target="1200">0</h2>
+        <p>Recovered Items</p>
+    </div>
+
+    <div class="stat-card">
+        <h2 class="counter" data-target="95">0</h2>
+        <p>AI Accuracy %</p>
+    </div>
+
+    <div class="stat-card">
+        <h2 class="counter" data-target="5000">0</h2>
+        <p>Active Users</p>
+    </div>
+
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+
+<section class="how-it-works" id="about">
+
+    <div class="section-header">
+        <h2>How LostAI Works</h2>
+        <p>Recover your lost belongings in just three simple steps.</p>
+    </div>
+
+    <div class="steps">
+
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <h3>Upload Item</h3>
+            <p>Report your lost or found item with photos and description.</p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <i class="fa-solid fa-brain"></i>
+            <h3>AI Analysis</h3>
+            <p>AI compares images, descriptions and locations to find the best matches.</p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <i class="fa-solid fa-handshake"></i>
+            <h3>Recover Item</h3>
+            <p>Receive instant notifications and reconnect with your belongings.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<!-- ================= USER REVIEWS ================= -->
+
+<section class="reviews-section">
+
+    <div class="section-header">
+
+        <span class="reviews-label">
+            <i class="fa-solid fa-sparkles"></i>
+            USER EXPERIENCES
+        </span>
+
+        <h2>What Users Say</h2>
+
+        <p>
+            Real experiences from users who found their belongings
+            with LostAI.
+        </p>
+
+    </div>
+
+
+    <div class="review-slider">
+
+        <!-- Previous -->
+        <button class="review-nav prev-review" onclick="previousReview()">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+
+        <!-- Main Review Card -->
+
+        <div class="review-card" onclick="openReviewPopup()">
+
+            <div class="review-card-top">
+
+                <div class="review-user">
+
+                    <div class="review-avatar" id="reviewAvatar">
+                        RS
+                    </div>
+
+                    <div>
+                        <h3 id="reviewName">Rahul Sharma</h3>
+
+                        <span class="verified-user">
+                            <i class="fa-solid fa-circle-check"></i>
+                            Verified User
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="review-stars">
+                    ★★★★★
+                </div>
+
+            </div>
+
+
+            <!-- AI Match Information -->
+
+            <div class="review-info">
+
+                <div class="review-info-item">
+
+                    <i class="fa-solid fa-box-open"></i>
+
+                    <span>ITEM</span>
+
+                    <strong id="reviewItem">
+                        Laptop
+                    </strong>
+
+                </div>
+
+
+                <div class="review-connector">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+
+                <div class="review-info-item ai-score">
+
+                    <i class="fa-solid fa-robot"></i>
+
+                    <span>AI MATCH</span>
+
+                    <strong id="reviewScore">
+                        96%
+                    </strong>
+
+                </div>
+
+
+                <div class="review-connector">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+
+                <div class="review-info-item recovered">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <span>STATUS</span>
+
+                    <strong>
+                        Recovered
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- Review -->
+
+            <div class="review-content">
+
+                <i class="fa-solid fa-quote-left"></i>
+
+                <p id="reviewText">
+                    I recovered my laptop with the help of
+                    LostAI. The AI matching made the process
+                    much easier.
+                </p>
+
+            </div>
+
+
+            <!-- Footer -->
+
+            <div class="review-card-footer">
+
+                <span>
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span id="reviewLocation">Bhandup</span>
+                </span>
+
+                <span class="read-review">
+                    View Full Review
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Next -->
+
+        <button class="review-nav next-review" onclick="nextReview()">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+    </div>
+
+
+    <!-- Counter -->
+
+    <div class="review-counter">
+
+        <span id="reviewCurrent">01</span>
+
+        <div class="review-counter-line"></div>
+
+        <span id="reviewTotal">05</span>
+
+    </div>
+
+</section>
+
+
+<!-- ================= REVIEW POPUP ================= -->
+
+<div class="review-popup" id="reviewPopup">
+
+    <div class="review-popup-overlay"
+         onclick="closeReviewPopup()">
+    </div>
+
+
+    <div class="review-popup-box">
+
+        <button class="review-popup-close"
+                onclick="closeReviewPopup()">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <span class="popup-label">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            USER EXPERIENCE
+        </span>
+
+
+        <div class="popup-avatar" id="popupAvatar">
+            RS
+        </div>
+
+
+        <h2 id="popupName">
+            Rahul Sharma
+        </h2>
+
+
+        <div class="popup-stars">
+            ★★★★★
+        </div>
+
+
+        <div class="popup-verified">
+            <i class="fa-solid fa-circle-check"></i>
+            Verified User
+        </div>
+
+
+        <div class="popup-details">
+
+            <div>
+                <span>ITEM</span>
+                <strong id="popupItem">
+                    Laptop
+                </strong>
+            </div>
+
+            <div>
+                <span>AI MATCH</span>
+                <strong id="popupScore">
+                    96%
+                </strong>
+            </div>
+
+            <div>
+                <span>LOCATION</span>
+                <strong id="popupLocation">
+                    Bhandup
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="popup-review-text">
+
+            <i class="fa-solid fa-quote-left"></i>
+
+            <p id="popupText">
+                I recovered my laptop with the help of
+                LostAI. The AI matching made the process
+                much easier.
+            </p>
+
+        </div>
+
+
+        <div class="popup-navigation">
+
+            <button onclick="previousReview()">
+                <i class="fa-solid fa-arrow-left"></i>
+                Previous
+            </button>
+
+            <span>
+                <b id="popupCurrent">1</b>
+                /
+                <b id="popupTotal">5</b>
+            </span>
+
+            <button onclick="nextReview()">
+                Next
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <div class="footer-content">
+
+        <h2>LostAI</h2>
+
+        <p>AI Powered Lost & Found Management System</p>
+
+        <p>© 2026 LostAI. All Rights Reserved.</p>
+
+    </div>
+
+</footer>
+
+// ================= REVIEW CAROUSEL =================
+
+<!-- ================= REVIEW CAROUSEL ================= -->
+
+<script id="reviews-data" type="application/json">
+{{ reviews | tojson }}
+</script>
+
+<script>
+
+const reviews = JSON.parse(
+    document.getElementById("reviews-data").textContent
+);
+
+let currentReview = 0;
+
+
+/* ================= SHOW REVIEW ================= */
+
+function showReview(index) {
+
+    if (!reviews || reviews.length === 0) {
+        return;
+    }
+
+    if (index < 0) {
+        index = reviews.length - 1;
+    }
+
+    if (index >= reviews.length) {
+        index = 0;
+    }
+
+    currentReview = index;
+
+    const review = reviews[currentReview];
+    const reviewStars = document.querySelector(".review-stars");
+
+if (reviewStars) {
+    let stars = "";
+
+    for (let i = 1; i <= 5; i++) {
+        stars += i <= review.rating ? "★" : "☆";
+    }
+
+    reviewStars.innerText = stars;
+}
+
+
+    /* Main Card */
+
+    const reviewName = document.getElementById("reviewName");
+    const reviewItem = document.getElementById("reviewItem");
+    const reviewScore = document.getElementById("reviewScore");
+    const reviewLocation = document.getElementById("reviewLocation");
+    const reviewText = document.getElementById("reviewText");
+    const reviewCurrent = document.getElementById("reviewCurrent");
+    const reviewTotal = document.getElementById("reviewTotal");
+
+
+    if (reviewName) {
+        reviewName.innerText =
+            review.name || "Anonymous";
+    }
+
+    if (reviewItem) {
+        reviewItem.innerText =
+            review.item_name || "Item";
+    }
+
+    if (reviewScore) {
+        reviewScore.innerText =
+            (review.score || 0) + "%";
+    }
+
+    if (reviewLocation) {
+        reviewLocation.innerText =
+            review.location || "Location not available";
+    }
+
+    if (reviewText) {
+        reviewText.innerText =
+            review.review_text || "No review available.";
+    }
+
+    if (reviewCurrent) {
+        reviewCurrent.innerText =
+            String(currentReview + 1).padStart(2, "0");
+    }
+
+    if (reviewTotal) {
+        reviewTotal.innerText =
+            String(reviews.length).padStart(2, "0");
+    }
+
+
+    /* Popup */
+    const popupStars = document.querySelector(".popup-stars");
+
+if (popupStars) {
+
+    let stars = "";
+
+    for (let i = 1; i <= 5; i++) {
+        stars += i <= review.rating ? "★" : "☆";
+    }
+
+    popupStars.innerText = stars;
+}
+    const popupAvatar = document.getElementById("popupAvatar");
+    const popupName = document.getElementById("popupName");
+    const popupItem = document.getElementById("popupItem");
+    const popupScore = document.getElementById("popupScore");
+    const popupLocation = document.getElementById("popupLocation");
+    const popupText = document.getElementById("popupText");
+    const popupCurrent = document.getElementById("popupCurrent");
+    const popupTotal = document.getElementById("popupTotal");
+
+
+    if (popupAvatar) {
+        popupAvatar.innerText =
+            review.name
+                ? review.name.charAt(0).toUpperCase()
+                : "U";
+    }
+
+    if (popupName) {
+        popupName.innerText =
+            review.name || "Anonymous";
+    }
+
+    if (popupItem) {
+        popupItem.innerText =
+            review.item_name || "Item";
+    }
+
+    if (popupScore) {
+        popupScore.innerText =
+            (review.score || 0) + "%";
+    }
+
+    if (popupLocation) {
+        popupLocation.innerText =
+            review.location || "Location not available";
+    }
+
+    if (popupText) {
+        popupText.innerText =
+            review.review_text || "No review available.";
+    }
+
+    if (popupCurrent) {
+        popupCurrent.innerText =
+            String(currentReview + 1).padStart(2, "0");
+    }
+
+    if (popupTotal) {
+        popupTotal.innerText =
+            String(reviews.length).padStart(2, "0");
+    }
+}
+
+
+/* ================= NEXT ================= */
+
+function nextReview() {
+
+    if (!reviews || reviews.length === 0) {
+        return;
+    }
+
+    if (currentReview < reviews.length - 1) {
+        currentReview++;
+        showReview(currentReview);
+    }
+}
+
+
+/* ================= PREVIOUS ================= */
+
+function previousReview() {
+
+    if (!reviews || reviews.length === 0) {
+        return;
+    }
+
+    if (currentReview > 0) {
+        currentReview--;
+        showReview(currentReview);
+    }
+}
+
+/* ================= OPEN POPUP ================= */
+
+function openReviewPopup() {
+
+    if (!reviews || reviews.length === 0) {
+        return;
+    }
+
+    showReview(currentReview);
+
+    const popup =
+        document.getElementById("reviewPopup");
+
+    if (popup) {
+        popup.classList.add("active");
+    }
+}
+function closeReviewPopup() {
+
+    const popup =
+        document.getElementById("reviewPopup");
+
+    if (popup) {
+        popup.classList.remove("active");
+    }
+}
+
+
+
+/* ================= CLOSE POPUP ================= */
+
+
+
+/* ================= PAGE LOAD ================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    if (reviews && reviews.length > 0) {
+        showReview(0);
+    }
+
+});
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+
+{% block title %}Secure Chat | LostAI{% endblock %}
+
+{% block css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/chat.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="chat-page">
+
+    <div class="chat-container">
+
+        <!-- HEADER -->
+        <div class="chat-header">
+
+            <div class="header-left">
+
+                <div class="chat-icon">
+                    <i class="fa-solid fa-comments"></i>
+                </div>
+
+                <div>
+                    <h1>LostAI Secure Chat</h1>
+
+                    <div class="secure-status">
+                        <span class="online-dot"></span>
+                        Secure & Private
+                    </div>
+                </div>
+
+            </div>
+
+            <a href="/match-details/{{ match.id }}" class="back-top">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Match
+            </a>
+
+        </div>
+
+
+        <!-- ITEM INFORMATION -->
+        <div class="item-info">
+
+            <div class="item-info-icon">
+                <i class="fa-solid fa-box"></i>
+            </div>
+
+            <div class="item-info-text">
+
+                <span class="small-label">
+                    Conversation about
+                </span>
+
+                <strong>
+                    {{ match.lost_item }}
+                </strong>
+
+            </div>
+
+            <div class="privacy-badge">
+                <i class="fa-solid fa-shield-halved"></i>
+                Private
+            </div>
+
+        </div>
+
+
+        <!-- CHAT AREA -->
+        <div class="chat-box">
+
+            {% if messages %}
+
+                {% for msg in messages %}
+
+                    {% if msg.sender_id == user_id %}
+
+                        <!-- SENT MESSAGE -->
+                        <div class="message-row sent-row">
+
+                            <div class="message sent">
+
+                                <div class="message-content">
+                                    {{ msg.message }}
+                                </div>
+
+                                <div class="message-time">
+                                    {{ msg.created_at }}
+                                    <i class="fa-solid fa-check-double"></i>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% else %}
+
+                        <!-- RECEIVED MESSAGE -->
+                        <div class="message-row received-row">
+
+                            <div class="avatar">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+
+                            <div class="message received">
+
+                                <div class="message-content">
+                                    {{ msg.message }}
+                                </div>
+
+                                <div class="message-time">
+                                    {{ msg.created_at }}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            {% else %}
+
+                <!-- EMPTY CHAT -->
+
+                <div class="empty-chat">
+
+                    <div class="empty-icon">
+                        <i class="fa-solid fa-message"></i>
+                    </div>
+
+                    <h3>Start a secure conversation</h3>
+
+                    <p>
+                        You can communicate with the other user
+                        without sharing your personal contact information.
+                    </p>
+
+                    <div class="privacy-message">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        Your contact information remains private.
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- PRIVACY NOTICE -->
+        <div class="privacy-notice">
+
+            <i class="fa-solid fa-lock"></i>
+
+            <span>
+                Messages are private between you and the other user.
+            </span>
+
+        </div>
+
+
+        <!-- MESSAGE FORM -->
+        <form
+            action="/send-message/{{ match.id }}"
+            method="POST"
+            class="chat-form"
+        >
+
+            <div class="input-wrapper">
+
+                <i class="fa-regular fa-message input-icon"></i>
+
+                <input
+                    type="text"
+                    name="message"
+                    placeholder="Type a secure message..."
+                    autocomplete="off"
+                    maxlength="500"
+                    required
+                >
+
+            </div>
+
+            <button type="submit" class="send-btn">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                <span>Send</span>
+
+            </button>
+
+        </form>
+
+
+        <!-- BOTTOM INFO -->
+        <div class="chat-footer">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <span>
+                LostAI Secure Communication
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

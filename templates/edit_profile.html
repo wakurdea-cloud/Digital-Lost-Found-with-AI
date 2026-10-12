@@ -1,0 +1,889 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Profile | LostAI</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/edit_profile.css') }}">
+
+</head>
+
+
+<body>
+
+
+<div class="edit-profile-page">
+
+
+    <!-- =====================================================
+         TOP HEADER
+    ====================================================== -->
+
+    <div class="page-topbar">
+
+        <div class="heading-area">
+
+            <div class="title-icon">
+                <i class="fa-solid fa-user-pen"></i>
+            </div>
+
+            <div>
+
+                <h1>Edit Profile</h1>
+
+                <p>
+                    
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <a href="{{ url_for('profile') }}"
+           class="back-profile-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            <span>Back to Profile</span>
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <div class="profile-layout">
+
+
+        <!-- =================================================
+             LEFT PROFILE CARD
+        ================================================== -->
+
+        <aside class="profile-side-card">
+
+
+            <div class="profile-cover">
+
+                <div class="cover-pattern"></div>
+
+            </div>
+
+
+            <div class="profile-image-area">
+
+
+                <div class="profile-image-wrapper">
+
+    {% if profile_photo %}
+
+        <img
+            src="{{ url_for('static', filename=profile_photo) }}"
+            class="profile-image profile-photo"
+            id="profilePreview"
+            alt="Profile Photo">
+
+    {% else %}
+
+        <div
+            class="profile-image"
+            id="profilePreview">
+
+            {{ username[0]|upper }}
+
+        </div>
+
+    {% endif %}
+
+    <label
+        for="profile_photo"
+        class="image-camera-btn"
+        title="Change profile photo">
+
+        <i class="fa-solid fa-camera"></i>
+
+    </label>
+
+     
+</div>
+
+
+                <h2>
+                    {{ username }}
+                </h2>
+
+
+                <p class="member-label">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    LostAI Member
+
+                </p>
+
+
+               <label
+           for="profile_photo"
+           class="change-photo-btn">
+
+          <i class="fa-solid fa-camera"></i>
+
+                 Change Photo
+
+            </label>
+
+            </div>
+
+
+            <!-- Profile Status -->
+
+            <div class="profile-status">
+
+                <div class="status-dot"></div>
+
+                <div>
+
+                    <strong>Account Active</strong>
+
+                    <span>Your account is secure</span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Side Information -->
+
+            <div class="side-info">
+
+                <div class="side-info-item">
+
+                    <div class="side-info-icon purple">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>Protected Account</strong>
+
+                        <span>Your information is private</span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="side-info-item">
+
+                    <div class="side-info-icon blue">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>Lost & Found</strong>
+
+                        <span>Help items find their owners</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- =================================================
+             RIGHT FORM AREA
+        ================================================== -->
+
+        <main class="profile-form-card">
+
+
+            <!-- FORM HEADER -->
+
+            <div class="form-card-header">
+
+                <div>
+
+                    <h2>Personal Information</h2>
+
+                    <p>
+                        
+                    </p>
+
+                </div>
+
+
+                <div class="secure-badge">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    Secure
+
+                </div>
+
+            </div>
+
+
+
+            <div class="divider"></div>
+
+
+
+            <!-- FORM -->
+            <form method="POST"
+      action="{{ url_for('edit_profile') }}"
+      class="edit-form"
+        id="editProfileForm"
+      enctype="multipart/form-data">
+
+
+       <input type="file"
+       id="profile_photo"
+       name="profile_photo"
+       accept="image/jpeg,image/png,image/webp"
+       hidden>
+
+                <!-- =========================================
+                     BASIC INFORMATION
+                ========================================== -->
+
+                <div class="section-heading">
+
+                    <div class="section-icon">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>Basic Information</h3>
+
+                        <p>
+                            
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- NAME + USERNAME -->
+
+                <div class="form-grid">
+
+
+                    <div class="input-group">
+
+                        <label for="username">
+
+                            Full Name
+
+                            <span>*</span>
+
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-regular fa-user"></i>
+
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                value="{{ username }}"
+                                placeholder="Enter your full name"
+                                required>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="input-group">
+
+                        <label for="username_display">
+
+                            Username
+
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-at"></i>
+
+                            <input
+                                type="text"
+                                id="username_display"
+                                name="username_display"
+                                value="{{ username|lower }}"
+                                placeholder="Username">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     CONTACT INFORMATION
+                ========================================== -->
+
+                <div class="section-heading contact-section">
+
+                    <div class="section-icon">
+                        <i class="fa-solid fa-address-book"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>Contact Information</h3>
+
+                        <p>
+                        
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="input-group">
+
+                    <label for="email">
+
+                        Email Address
+
+                        <span>*</span>
+
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-regular fa-envelope"></i>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value="{{ email }}"
+                            placeholder="Enter your email address"
+                            required>
+
+                        <div class="verified-icon"
+                             title="Email verified">
+
+                            <i class="fa-solid fa-check"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <small>
+                
+                    </small>
+
+                </div>
+
+
+
+                <!-- PHONE -->
+
+                <div class="input-group">
+
+                    <label for="phone">
+
+                        Phone Number
+
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-phone"></i>
+                        <input
+                           type="tel"
+                           id="phone"
+                           name="phone"
+                           value="{{ phone or '' }}"
+                           placeholder="Enter your phone number">
+
+                    </div>
+
+
+                    <small>
+                    
+                    </small>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     LOCATION
+                ========================================== -->
+
+
+
+
+                <!-- =========================================
+                     ACCOUNT SECURITY
+                ========================================== -->
+
+                <div class="security-box">
+
+                    <div class="security-box-icon">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                    </div>
+
+
+                    <div class="security-box-content">
+
+                        <h3>
+                            Account Security
+                        </h3>
+
+                        <p>
+                            Keep your password strong and your account protected.
+                        </p>
+
+                    </div>
+
+
+                    <a href="{{ url_for('change_password') }}"
+                       class="security-action">
+
+                        Change Password
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     FORM ACTIONS
+                ========================================== -->
+
+                <div class="form-actions">
+
+                    <a href="{{ url_for('profile') }}"
+                       class="cancel-btn">
+
+                        Cancel
+
+                    </a>
+
+
+                    <button type="submit"
+                            class="save-btn">
+
+                        <i class="fa-solid fa-check"></i>
+
+                        Save Changes
+
+                    </button>
+
+                </div>
+
+
+            </form>
+            
+            <div class="photo-editor-overlay" id="photoEditor">
+
+    <div class="photo-editor-modal">
+
+        <div class="photo-editor-header">
+
+            <div>
+                <h2>
+                    <i class="fa-solid fa-camera"></i>
+                    Edit Profile Photo
+                </h2>
+
+                <p>
+                    Adjust your photo before saving
+                </p>
+            </div>
+
+            <button type="button"
+                    class="photo-editor-close"
+                    id="closePhotoEditor">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="photo-editor-preview">
+
+            <canvas id="photoCanvas"></canvas>
+
+            <div class="crop-circle"></div>
+
+        </div>
+
+
+        <div class="photo-editor-controls">
+
+            <button type="button"
+                    class="editor-control"
+                    id="zoomOut">
+
+                <i class="fa-solid fa-minus"></i>
+
+            </button>
+
+            <div class="zoom-indicator">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <span id="zoomValue">100%</span>
+
+            </div>
+
+            <button type="button"
+                    class="editor-control"
+                    id="zoomIn">
+
+                <i class="fa-solid fa-plus"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="photo-editor-actions">
+
+            <button type="button"
+                    class="editor-secondary-btn"
+                    id="rotateLeft">
+
+                <i class="fa-solid fa-rotate-left"></i>
+                Rotate
+
+            </button>
+
+            <button type="button"
+                    class="editor-secondary-btn"
+                    id="rotateRight">
+
+                <i class="fa-solid fa-rotate-right"></i>
+                Rotate
+
+            </button>
+
+            <label for="profile_photo"
+                   class="editor-secondary-btn">
+
+                <i class="fa-solid fa-image"></i>
+                Change Photo
+
+            </label>
+
+        </div>
+
+
+        <div class="photo-editor-footer">
+
+            <button type="button"
+                    class="editor-cancel-btn"
+                    id="cancelPhoto">
+
+                Cancel
+
+            </button>
+
+            <button type="button"
+                    class="editor-save-btn"
+                    id="applyPhoto">
+
+                <i class="fa-solid fa-check"></i>
+                Use This Photo
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+        </main>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         FOOTER NOTE
+    ====================================================== -->
+
+    <div class="privacy-note">
+
+        
+
+        <span>
+            
+        </span>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+const input = document.getElementById("profile_photo");
+const editor = document.getElementById("photoEditor");
+const canvas = document.getElementById("photoCanvas");
+const ctx = canvas.getContext("2d");
+
+const preview = document.getElementById("profilePreview");
+
+let img = new Image();
+let scale = 1;
+let rotation = 0;
+let posX = 0;
+let posY = 0;
+
+input.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    const allowed = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ];
+
+    if (!allowed.includes(file.type)) {
+
+        alert("Please select JPG, PNG or WEBP image.");
+
+        this.value = "";
+        return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+
+        alert("Image size must be below 5 MB.");
+
+        this.value = "";
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+
+        img = new Image();
+
+        img.onload = function () {
+
+            scale = 1;
+            rotation = 0;
+            posX = 0;
+            posY = 0;
+
+            drawImage();
+
+            editor.classList.add("active");
+        };
+
+        img.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+});
+
+
+function drawImage() {
+
+    const size = 420;
+
+    canvas.width = size;
+    canvas.height = size;
+
+    ctx.clearRect(0, 0, size, size);
+
+    ctx.save();
+
+    ctx.translate(
+        size / 2 + posX,
+        size / 2 + posY
+    );
+
+    ctx.rotate(
+        rotation * Math.PI / 180
+    );
+
+    const imageScale = Math.max(
+        size / img.width,
+        size / img.height
+    ) * scale;
+
+    const width = img.width * imageScale;
+    const height = img.height * imageScale;
+
+    ctx.drawImage(
+        img,
+        -width / 2,
+        -height / 2,
+        width,
+        height
+    );
+
+    ctx.restore();
+
+    document.getElementById("zoomValue").textContent =
+        Math.round(scale * 100) + "%";
+}
+
+
+document.getElementById("zoomIn").onclick = function () {
+
+    scale = Math.min(scale + 0.1, 3);
+
+    drawImage();
+};
+
+
+document.getElementById("zoomOut").onclick = function () {
+
+    scale = Math.max(scale - 0.1, 0.5);
+
+    drawImage();
+};
+
+
+document.getElementById("rotateLeft").onclick = function () {
+
+    rotation -= 90;
+
+    drawImage();
+};
+
+
+document.getElementById("rotateRight").onclick = function () {
+
+    rotation += 90;
+
+    drawImage();
+};
+
+
+document.getElementById("closePhotoEditor").onclick =
+function () {
+
+    input.value = "";
+    editor.classList.remove("active");
+};
+
+
+document.getElementById("cancelPhoto").onclick =
+function () {
+
+    input.value = "";
+    editor.classList.remove("active");
+};
+
+
+document.getElementById("applyPhoto").onclick =
+function () {
+
+    canvas.toBlob(function (blob) {
+
+        const file = new File(
+            [blob],
+            "profile_photo.jpg",
+            {
+                type: "image/jpeg"
+            }
+        );
+
+        const data = new DataTransfer();
+
+        data.items.add(file);
+
+        input.files = data.files;
+
+        const url = URL.createObjectURL(blob);
+
+        if (preview.tagName === "IMG") {
+
+            preview.src = url;
+
+        } else {
+
+            const newImage =
+                document.createElement("img");
+
+            newImage.src = url;
+            newImage.id = "profilePreview";
+            newImage.className =
+                "profile-image profile-photo";
+            newImage.alt = "Profile Photo";
+
+            preview.replaceWith(newImage);
+        }
+
+        editor.classList.remove("active");
+
+    }, "image/jpeg", 0.92);
+};
+
+</script>
+
+</body>
+
+</html>
+
+

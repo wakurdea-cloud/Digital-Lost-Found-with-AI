@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+
+{% block title %}AI Matches{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/matches.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+      <aside class="sidebar">
+
+    <div class="brand">
+        <i class="fa-solid fa-location-crosshairs"></i>
+        <span>LostAI</span>
+    </div>
+
+    <ul>
+
+        <li>
+            <a href="/dashboard">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/report-lost">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>Report Lost</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/report-found">
+                <i class="fa-solid fa-box-open"></i>
+                <span>Report Found</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/matches">
+                <i class="fa-solid fa-robot"></i>
+                <span>AI Matches</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/notifications">
+                <i class="fa-solid fa-bell"></i>
+                <span>Notifications</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/my-reports">
+                <i class="fa-solid fa-folder-open"></i>
+                <span>My Reports</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/profile">
+                <i class="fa-solid fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+
+    <!-- Main -->
+
+    <main class="main-content">
+
+        <div class="page-header">
+
+            <h1>AI Matches</h1>
+
+            <p>
+                AI automatically compares all lost and found reports and displays only high confidence matches.
+            </p>
+
+        </div>
+
+        <!-- Summary -->
+
+        <div class="summary">
+
+            <div class="summary-card">
+                <h2>{{ total_matches }}</h2>
+                <p>Total Matches</p>
+            </div>
+
+            <div class="summary-card">
+                <h2>{{ high_matches }}</h2>
+                <p>High Confidence</p>
+            </div>
+
+            <div class="summary-card">
+                <h2>{{ pending }}</h2>
+                <p>Pending Verification</p>
+            </div>
+
+        </div>
+
+        {% if matches %}
+
+            {% for match in matches %}
+
+            <div class="match-card">
+
+                <!-- Lost Item -->
+
+                <div class="left">
+
+                   {% if match.lost_image %}
+    <img src="{{ url_for('static', filename='uploads/' + match.lost_image) }}" alt="Lost Item">
+{% else %}
+    <div class="no-image">
+        <i class="fa-regular fa-image"></i>
+        <span>No Image</span>
+    </div>
+{% endif %}
+                    <h3>{{ match.lost_item }}</h3>
+
+                    <span class="tag lost">Lost Item</span>
+
+                </div>
+
+                <!-- AI Score -->
+
+                <div class="middle">
+
+                    <div class="score">
+                        {{ match.score }}%
+                    </div>
+
+                    <h3>AI Match Score</h3>
+
+                    <p>
+                        <strong>Location :</strong>
+                        {{ match.location }}
+                    </p>
+
+                    {% if match.claim_status == "Not Claimed" %}
+
+<p><strong>Status :</strong> 🟡 AI Match Found</p>
+
+{% elif match.claim_status == "Claim Requested" %}
+
+<p><strong>Status :</strong> 🔵 Claim Requested</p>
+
+{% elif match.claim_status == "Approved" %}
+
+<p><strong>Status :</strong> 🟢 Claim Approved</p>
+
+{% elif match.claim_status == "Rejected" %}
+
+<p><strong>Status :</strong> 🔴 Claim Rejected</p>
+
+{% endif %}
+
+                </div>
+
+                <!-- Found Item -->
+
+                <div class="right">
+
+                    <img src="{{ url_for('static', filename='uploads/' + match.found_image) }}">
+
+                    <h3>{{ match.found_item }}</h3>
+
+                    <span class="tag found">Found Item</span>
+
+                </div>
+
+
+                <div class="match-actions">
+                      <a href="/match-details/{{ match.match_id }}" class="details-btn">
+                      <i class="fa-solid fa-eye"></i>
+                                 View Details
+                        </a>
+                </div>
+
+                <!-- View Details Button -->
+
+                
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+        <div class="empty">
+
+            <i class="fa-solid fa-robot"></i>
+
+            <h2>No AI Matches Yet</h2>
+
+            <p>
+
+                AI is continuously comparing all reports.
+
+                When a possible match is found, it will automatically appear here.
+
+            </p>
+
+            <div class="scan">
+
+                <i class="fa-solid fa-microchip"></i>
+
+                AI Status :
+                <b>Scanning Database...</b>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </main>
+
+</div>
+
+{% endblock %}

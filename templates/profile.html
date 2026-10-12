@@ -1,0 +1,452 @@
+
+{% extends "base.html" %}
+
+{% block title %}My Profile | LostAI{% endblock %}
+
+{% block css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- ================= SIDEBAR ================= -->
+      <aside class="sidebar">
+
+    <div class="brand">
+        <i class="fa-solid fa-location-crosshairs"></i>
+        <span>LostAI</span>
+    </div>
+
+    <ul>
+
+        <li>
+            <a href="/dashboard">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/report-lost">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>Report Lost</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/report-found">
+                <i class="fa-solid fa-box-open"></i>
+                <span>Report Found</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/matches">
+                <i class="fa-solid fa-robot"></i>
+                <span>AI Matches</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/notifications">
+                <i class="fa-solid fa-bell"></i>
+                <span>Notifications</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/my-reports">
+                <i class="fa-solid fa-folder-open"></i>
+                <span>My Reports</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/profile">
+                <i class="fa-solid fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+        <!-- Page Header -->
+
+        <div class="page-header">
+
+            <div>
+                <span class="page-label">
+                
+                </span>
+
+                <h1>My Profile</h1>
+
+                <p>
+            
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- ================= PROFILE HERO ================= -->
+
+        <section class="profile-card">
+
+            <div class="profile-cover"></div>
+
+            <div class="profile-content">
+
+                <!-- Profile Photo -->
+                <div class="profile-photo-wrapper">
+{% if profile_photo %}
+    <img
+        src="{{ url_for('static', filename=profile_photo) }}"
+        alt="Profile Photo"
+        class="profile-avatar profile-photo">
+{% else %}
+    <div class="profile-avatar">
+        {{ username[0]|upper }}
+    </div>
+{% endif %}
+
+    <a href="/edit-profile" class="edit-photo" title="Change profile photo">
+        <i class="fa-solid fa-camera"></i>
+    </a>
+
+</div>
+
+                <!-- User Information -->
+
+                <div class="profile-main-info">
+
+                    <div class="name-row">
+
+                        <h1>{{ username }}</h1>
+
+                        <span class="verified">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                    </div>
+
+                    <p class="username">
+                        @{{ username|lower|replace(" ", "_") }}
+                    </p>
+
+                    <div class="location">
+
+                        <span>
+                            <i class="fa-solid fa-envelope"></i>
+                            {{ email }}
+                        </span>
+
+                        <span>
+                            <i class="fa-regular fa-calendar"></i>
+                            Member since
+                            {{ created_at.strftime('%B %Y') if created_at else '2026' }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Profile Actions -->
+
+            <div class="profile-actions">
+
+                <a href="/edit-profile" class="outline-btn">
+                    <i class="fa-solid fa-pen"></i>
+                    Edit Profile
+                </a>
+
+               
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="profile-stats">
+
+            <!-- Reports -->
+
+            <div class="stat-box">
+
+                <div class="stat-icon purple">
+                    <i class="fa-solid fa-file-lines"></i>
+                </div>
+
+                <div>
+
+                    <h3>{{ lost_count + found_count }}</h3>
+
+                    <p>Reports Posted</p>
+
+                    <small>
+                        Lost: {{ lost_count }}
+                        &nbsp; • &nbsp;
+                        Found: {{ found_count }}
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- AI Matches -->
+
+            <div class="stat-box">
+
+                <div class="stat-icon green">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+
+                <div>
+
+                    <h3>{{ match_count }}</h3>
+
+                    <p>AI Matches</p>
+
+                    <small>
+                        AI detected matches
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- Account -->
+
+            <div class="stat-box">
+
+                <div class="stat-icon orange">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <div>
+
+                    <h3>Active</h3>
+
+                    <p>Account Status</p>
+
+                    <small>
+                        Your account is secure
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ACCOUNT INFORMATION ================= -->
+
+        <section class="information-card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-label">
+                        
+                    </span>
+
+                    <h2>Account Details</h2>
+
+                </div>
+
+                <i class="fa-solid fa-id-card"></i>
+
+            </div>
+
+
+            <div class="information-grid">
+
+                <!-- Full Name -->
+
+                <div class="info-item">
+
+                    <div class="info-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <div>
+
+                        <span>Full Name</span>
+
+                        <strong>
+                            {{ username }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="info-item">
+
+                    <div class="info-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+
+                    <div>
+
+                        <span>Email Address</span>
+
+                        <strong>
+                            {{ email }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Phone -->
+
+                <div class="info-item">
+
+                    <div class="info-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+
+                    <div>
+
+                        <span>Phone Number</span>
+
+                        <strong>
+                            {{ phone if phone else 'Not added' }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Member Since -->
+
+                <div class="info-item">
+
+                    <div class="info-icon">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+
+                    <div>
+
+                        <span> Since</span>
+
+                        <strong>
+                            {{ created_at.strftime('%d %B %Y')
+                               if created_at else 'Not available' }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SECURITY ================= -->
+
+        <section class="security-card">
+
+            <div class="security-icon">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+            </div>
+
+            <div class="security-content">
+
+                <h3>Account Security</h3>
+
+                <p>
+                    Keep your account secure by using a strong password
+                    and updating it regularly.
+                </p>
+
+            </div>
+
+            <a href="/change-password" class="security-btn">
+
+                <i class="fa-solid fa-key"></i>
+
+                Change Password
+
+            </a>
+
+        </section>
+
+
+        <!-- ================= DANGER ZONE ================= -->
+
+        <section class="danger-card">
+
+            <div>
+
+                <h3>
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    Delete Account
+                </h3>
+
+                <p>
+                    Permanently delete your LostAI account and associated
+                    account data.
+                </p>
+
+            </div>
+
+            <form action="/delete-account" method="POST"
+      onsubmit="return confirm('Are you sure you want to permanently delete your account?');">
+
+    <button type="submit" class="profile-delete-btn">
+
+        <i class="fa-solid fa-trash"></i>
+
+        Delete Account
+
+    </button>
+
+</form>
+        </section>
+
+
+    </main>
+
+</div>
+
+{% endblock %}
+
+
+

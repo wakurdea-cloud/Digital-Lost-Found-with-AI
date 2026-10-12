@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+
+{% block title %}Notifications | LostAI{% endblock %}
+
+{% block css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/notifications.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- ================= SIDEBAR ================= -->
+     <aside class="sidebar">
+
+    <div class="brand">
+        <i class="fa-solid fa-location-crosshairs"></i>
+        <span>LostAI</span>
+    </div>
+
+    <ul>
+
+        <li>
+            <a href="/dashboard">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/report-lost">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>Report Lost</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/report-found">
+                <i class="fa-solid fa-box-open"></i>
+                <span>Report Found</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/matches">
+                <i class="fa-solid fa-robot"></i>
+                <span>AI Matches</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/notifications">
+                <i class="fa-solid fa-bell"></i>
+                <span>Notifications</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/my-reports">
+                <i class="fa-solid fa-folder-open"></i>
+                <span>My Reports</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/profile">
+                <i class="fa-solid fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+        <!-- PAGE HEADER -->
+
+        <div class="page-header">
+
+            <div>
+
+                <span class="page-label">
+                    
+                </span>
+
+                <h1>Notifications</h1>
+
+                <p>
+                    Stay updated with your lost and found activity.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= NOTIFICATION CONTENT ================= -->
+
+        <section class="notifications-section">
+
+            <div class="notification-section-header">
+
+                <div>
+                    <h2>Recent Notifications</h2>
+
+                    <p>
+                        
+                    </p>
+                </div>
+
+                {% if notifications %}
+                    <span class="notification-count">
+                        {{ notifications|length }} Notifications
+                    </span>
+                {% endif %}
+
+            </div>
+
+
+            <div class="notification-list">
+
+                {% if notifications %}
+
+                    {% for notification in notifications %}
+
+                    <div class="notification-card">
+
+                        <div class="notification-icon">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+
+
+                        <div class="notification-content">
+
+                            <div class="notification-title">
+
+                                <h3>
+                                    AI Match Found
+                                </h3>
+
+                                <span class="new-badge">
+                                    NEW
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                A potential match has been detected
+                                for your lost item.
+                            </p>
+
+
+                            <div class="notification-details">
+
+                                <span>
+                                    <i class="fa-solid fa-bullseye"></i>
+
+                                    Match
+                                    {{ notification.score }}%
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-box-open"></i>
+
+                                    {{ notification.found_item }}
+                                </span>
+
+                            </div>
+
+
+                            <a
+                                href="/match-details/{{ notification.id }}"
+                                class="view-match">
+
+                                View Match
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <!-- EMPTY STATE -->
+
+                    <div class="empty-notifications">
+
+                        <div class="empty-icon">
+
+                            <i class="fa-regular fa-bell-slash"></i>
+
+                        </div>
+
+                        <h2>No Notifications</h2>
+
+                        <p>
+                            You're all caught up.
+                            New AI matches and claim updates
+                            will appear here.
+                        </p>
+
+                        <a href="/dashboard" class="dashboard-btn">
+
+                            <i class="fa-solid fa-house"></i>
+
+                            Go to Dashboard
+
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock %}
