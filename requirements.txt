@@ -14,3 +14,4 @@ Flask-Mail
 python-dotenv
 gunicorn
 ImageHash
+flask_mysqldb
